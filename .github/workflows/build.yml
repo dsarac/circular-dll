@@ -1,24 +1,12 @@
-name: build
+- name: Show files
+  shell: cmd
+  run: |
+    echo CURRENT DIR:
+    cd
+    echo LIST:
+    dir
 
-on: [push]
-
-jobs:
-  build:
-    runs-on: windows-latest
-
-    steps:
-    - uses: actions/checkout@v4
-
-    - name: Setup MSVC
-      uses: ilammy/msvc-dev-cmd@v1
-
-    - name: Build DLL (x86)
-      shell: cmd
-      run: |
-        cl /LD /EHsc circular.cpp gdiplus.lib /link /MACHINE:X86
-
-    - name: Upload DLL
-      uses: actions/upload-artifact@v4
-      with:
-        name: circular-dll
-        path: circular.dll
+- name: Build DLL (x86)
+  shell: cmd
+  run: |
+    cl /LD /EHsc circular.cpp gdiplus.lib /link /MACHINE:X86
